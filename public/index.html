@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!-- Salesforce Messaging Chatbot -->
+    <script>
+      function injectAgentCSS() {
+        if (!document.getElementById("agent-css-style")) {
+          const style = document.createElement("style");
+          style.id = "agent-css-style";
+          style.innerHTML = `
+            .embeddedServiceChatHeader {
+              background-color: #1a0022 !important;
+              color: #ff33ff !important;
+            }
+            .embeddedServiceChatFooter textarea {
+              background-color: #2e003b !important;
+              color: #fff !important;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+      }
+      function removeAgentCSS() {
+        const style = document.getElementById("agent-css-style");
+        style && style.remove();
+      }
+      function initEmbeddedMessaging() {
+        try {
+          embeddedservice_bootstrap.settings.language = "en_US";
+          embeddedservice_bootstrap.init(
+            "00DgL000003HwM4", // ORG ID
+            "Jackson_Embedded_Service", // Deployment Name
+            "https://orgfarm-44732f2175-dev-ed.develop.my.site.com/ESWJacksonEmbeddedServi1748617693291", // Base URL
+            {
+              scrt2URL:
+                "https://orgfarm-44732f2175-dev-ed.develop.my.salesforce-scrt.com",
+              isOfflineSupportEnabled: false
+            }
+          );
+          embeddedservice_bootstrap.addEventHandler("onAgentJoined", function () {
+            injectAgentCSS();
+          });
+          embeddedservice_bootstrap.addEventHandler("afterDestroy", function () {
+            removeAgentCSS();
+          });
+        } catch (err) {
+          console.error("Error loading Embedded Messaging: ", err);
+        }
+      }
+    </script>
+    <script src="https://orgfarm-44732f2175-dev-ed.develop.my.site.com/ESWJacksonEmbeddedServi1748617693291/assets/js/bootstrap.min.js" onload="initEmbeddedMessaging()"></script>
+    <!-- Fim Salesforce Messaging Chatbot -->
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
