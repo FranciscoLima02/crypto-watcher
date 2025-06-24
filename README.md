@@ -35,7 +35,7 @@ To create a production build run `npm run build`.
 
 ## Environment Variables
 
-Create a `.env.local` file in the project root and provide your keys:
+Copy `.env.example` to `.env.local` in the project root and update it with your keys:
 
 ```bash
 REACT_APP_FIREBASE_API_KEY=your-key

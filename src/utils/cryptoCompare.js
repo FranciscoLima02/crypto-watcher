@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "d66bdd612371ec590fd10cc038bf4d71a97a8f28f5ec354fe68225f16117c4b3";
+const API_KEY = process.env.REACT_APP_CRYPTOCOMPARE_API_KEY;
 const BASE_URL = "https://min-api.cryptocompare.com/data";
 
 export async function fetchCurrentPrice(coinSymbol = "BTC", currency = "USD") {
