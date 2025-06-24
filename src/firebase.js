@@ -5,13 +5,13 @@ import { getFirestore } from "firebase/firestore";
 import { getMessaging } from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCIwdw0suzS6hfZb-jAJzqlsAAyy9qe1ro",
-  authDomain: "crypto-watcher-c9354.firebaseapp.com",
-  projectId: "crypto-watcher-c9354",
-  storageBucket: "crypto-watcher-c9354.appspot.com",
-  messagingSenderId: "563751265346",
-  appId: "1:563751265346:web:7b23fec302a5aa1cbeb9db",
-  measurementId: "G-6414V1MXX4"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
