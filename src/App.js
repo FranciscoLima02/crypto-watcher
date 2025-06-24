@@ -18,7 +18,7 @@ function PrivateRoute({ children }) {
 }
 
 export default function App() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   
   // Ativa o verificador de alertas
   useAlertChecker();
@@ -28,8 +28,8 @@ export default function App() {
       <div className="fixed inset-0 -z-10 bg-gradient-to-br from-gray-950 via-gray-900 to-[#1a0022]" />
       <div className="flex">
         {user && <Sidebar />}
-        <main className="w-full min-h-screen">
-          <div className={`${user ? "ml-20" : ""} w-full`}>
+        <main className={`min-h-screen flex-1 ${user ? "ml-20" : ""}`}>
+          <div className="w-full">
             <Routes>
               <Route path="/" element={<PrivateRoute><Dashboard/></PrivateRoute>} />
               <Route path="/converter" element={<PrivateRoute><Converter/></PrivateRoute>} />
@@ -42,7 +42,7 @@ export default function App() {
           </div>
         </main>
       </div>
-      <SalesforceChat />
+      {user && <SalesforceChat />}
     </BrowserRouter>
   );
 }

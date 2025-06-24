@@ -30,55 +30,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!-- Salesforce Messaging Chatbot -->
-    <script>
-      function injectAgentCSS() {
-        if (!document.getElementById("agent-css-style")) {
-          const style = document.createElement("style");
-          style.id = "agent-css-style";
-          style.innerHTML = `
-            .embeddedServiceChatHeader {
-              background-color: #1a0022 !important;
-              color: #ff33ff !important;
-            }
-            .embeddedServiceChatFooter textarea {
-              background-color: #2e003b !important;
-              color: #fff !important;
-            }
-          `;
-          document.head.appendChild(style);
-        }
-      }
-      function removeAgentCSS() {
-        const style = document.getElementById("agent-css-style");
-        style && style.remove();
-      }
-      function initEmbeddedMessaging() {
-        try {
-          embeddedservice_bootstrap.settings.language = "en_US";
-          embeddedservice_bootstrap.init(
-            "00DgL000003HwM4", // ORG ID
-            "Jackson_Embedded_Service", // Deployment Name
-            "https://orgfarm-44732f2175-dev-ed.develop.my.site.com/ESWJacksonEmbeddedServi1748617693291", // Base URL
-            {
-              scrt2URL:
-                "https://orgfarm-44732f2175-dev-ed.develop.my.salesforce-scrt.com",
-              isOfflineSupportEnabled: false
-            }
-          );
-          embeddedservice_bootstrap.addEventHandler("onAgentJoined", function () {
-            injectAgentCSS();
-          });
-          embeddedservice_bootstrap.addEventHandler("afterDestroy", function () {
-            removeAgentCSS();
-          });
-        } catch (err) {
-          console.error("Error loading Embedded Messaging: ", err);
-        }
-      }
-    </script>
-    <script src="https://orgfarm-44732f2175-dev-ed.develop.my.site.com/ESWJacksonEmbeddedServi1748617693291/assets/js/bootstrap.min.js" onload="initEmbeddedMessaging()"></script>
-    <!-- Fim Salesforce Messaging Chatbot -->
+    
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

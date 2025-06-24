@@ -35,7 +35,7 @@ const TIMEFRAME_OPTIONS = [
   { label: "1y", value: "day", limit: 365, aggregate: 1 },
 ];
 
-export default function LiveCoinChart({ coinSymbol = "BTC", currency = "USD" }) {
+export default function LiveCoinChart({ coinId = "btc-bitcoin", currency = "USD" }) {
   const [timeframe, setTimeframe] = useState(TIMEFRAME_OPTIONS[2]); // default 1h
   const [chartData, setChartData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -44,6 +44,9 @@ export default function LiveCoinChart({ coinSymbol = "BTC", currency = "USD" }) 
   useEffect(() => {
     async function fetchChart() {
       setLoading(true);
+      
+      const coinSymbol = coinId.split('-')[0].toUpperCase();
+
       let endpoint = "";
       if (timeframe.value === "minute") {
         endpoint = `https://min-api.cryptocompare.com/data/v2/histominute?fsym=${coinSymbol}&tsym=${currency}&limit=${timeframe.limit}&aggregate=${timeframe.aggregate}`;
@@ -81,7 +84,7 @@ export default function LiveCoinChart({ coinSymbol = "BTC", currency = "USD" }) 
       setLoading(false);
     }
     fetchChart();
-  }, [coinSymbol, currency, timeframe]);
+  }, [coinId, currency, timeframe]);
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-[#19002299] rounded-2xl p-6 shadow-xl border-2 border-[#ff33ff30] mt-8">

@@ -3,7 +3,8 @@ import { useEffect } from "react";
 
 export default function SalesforceChat() {
   useEffect(() => {
-    // Inject CSS fora do iframe
+    let scriptEl;
+
     if (!document.getElementById("custom-chat-css")) {
       const style = document.createElement("style");
       style.id = "custom-chat-css";
@@ -23,19 +24,23 @@ export default function SalesforceChat() {
         { scrt2URL: "https://orgfarm-44732f2175-dev-ed.develop.my.salesforce-scrt.com" }
       );
     };
-
-    if (!document.getElementById("sf-messaging-script")) {
-      const s = document.createElement("script");
-      s.id = "sf-messaging-script";
-      s.type = "text/javascript";
-      s.src =
+      scriptEl = document.createElement("script");
+      scriptEl.id = "sf-messaging-script";
+      scriptEl.type = "text/javascript";
+      scriptEl.src =
         "https://orgfarm-44732f2175-dev-ed.develop.my.site.com/ESWJacksonEmbeddedServi1748617693291/assets/js/bootstrap.min.js";
-      s.onload = () => window.initEmbeddedMessaging();
-      document.body.appendChild(s);
-      return () => s.remove();
-    } else {
-      window.initEmbeddedMessaging();
-    }
+      scriptEl.onload = () => window.initEmbeddedMessaging();
+      document.body.appendChild(scriptEl);
+
+      return () => {
+        if (scriptEl) {
+        scriptEl.remove();
+      }
+      const styleEl = document.getElementById("custom-chat-css");
+      if (styleEl) {
+        styleEl.remove();
+      }
+    };
   }, []);
 
   return null;
